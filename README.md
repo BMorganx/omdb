@@ -1,2 +1,3 @@
-# omdb
-Movie Database
+# abasiccomposer
+A Basic Composer (ABC)
+
