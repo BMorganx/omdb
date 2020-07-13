@@ -1,3 +1,3 @@
-# Movie Database
-Group Project
+# abasiccomposer
+A Basic Composer (ABC)
 
