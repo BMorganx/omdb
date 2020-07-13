@@ -1,3 +1,2 @@
-# abasiccomposer
-A Basic Composer (ABC)
-
+# Movie Database
+Final project for Database Management Systems
