@@ -1,9 +1,15 @@
 *7.13 & 7.17 are missing due to absent students*
 _____________________
 7.14 -- Brandi
+
+*Description: Create movie_trivia  (assume movie_id and a bunch of trivia are given)*
+
 INSERT INTO `movie_trivia` (`movie_id`, `movie_trivia_id`, `movie_trivia_name`) VALUES(1, '234522', 'Example Movie trivia!')
 _____________________
 7.15 -- Daniel
+
+*Description: Create movie_keywords (assume movie_id and a bunch of keywords are given)*
+
 INSERT INTO `movie_keywords` (movie_id, keyword) 
 VALUES ('1',"Elections"),
 ('1',"Marriage"),
@@ -13,13 +19,40 @@ VALUES ('1',"Elections"),
 ('1',"Rosebud");
 _____________________
 7.16 -- Xavier
+
+*Description: Create movie_quotes (assume a movie_id and a bunch of quotes are given)*
+
 INSERT INTO `movie_quotes` (movie_id, movie_quote_id, movie_quote_name) VALUES ('1011', '1', "Brother, stop playing this weird joke on me.");
 _____________________
 7.33 -- 
-SELECT m.movie_id, m.native_name, m.english_name, m.year_made, movie_trivia.movie_trivia_id,
-movie_trivia.movie_trivia_name, movie_data.tag_line, movie_data.language, movie_data.country, movie_data.genre, movie_data.plot, (select count(*) from movie_trivia WHERE m.movie_id = movie_trivia.movie_id) as triviaCount, (select count(*) from movie_keywords mk WHERE m.movie_id = mk.movie_id) AS keywordCount, (select count(*) from movie_media mm WHERE m.movie_id = mm.movie_id) AS mediaCount, (select count(*) from songs s, movie_song ms WHERE s.song_id = ms.song_id AND m.movie_id = ms.movie_id) AS songs, (select count(*) from people p, movie_people mp WHERE p.people_id = mp.people_id AND m.movie_id = mp.movie_id ) as people
-FROM movies m
-LEFT JOIN (movie_trivia)
-            ON movie_trivia.movie_id = m.movie_id
-LEFT JOIN (movie_data)
-			ON movie_data.movie_id = m.movie_id
+SELECT m.movie_id, 
+       m.native_name, 
+       m.english_name, 
+       m.year_made,  
+       movie_data.tag_line, 
+       movie_data.language, 
+       movie_data.country, 
+       movie_data.genre, 
+       movie_data.plot, 
+       (SELECT Count(*) 
+        FROM   movie_trivia 
+        WHERE  m.movie_id = movie_trivia.movie_id) AS triviaCount, 
+       (SELECT Count(*) 
+        FROM   movie_keywords mk 
+        WHERE  m.movie_id = mk.movie_id)           AS keywordCount, 
+       (SELECT Count(*) 
+        FROM   movie_media mm 
+        WHERE  m.movie_id = mm.movie_id)           AS mediaCount, 
+       (SELECT Count(*) 
+        FROM   songs s, 
+               movie_song ms 
+        WHERE  s.song_id = ms.song_id 
+               AND m.movie_id = ms.movie_id)       AS songs, 
+       (SELECT Count(*) 
+        FROM   people p, 
+               movie_people mp 
+        WHERE  p.people_id = mp.people_id 
+               AND m.movie_id = mp.movie_id)       AS people 
+FROM   movies m 
+       LEFT JOIN (movie_data) 
+              ON movie_data.movie_id = m.movie_id
