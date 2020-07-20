@@ -68,3 +68,24 @@ SELECT m.movie_id,
 FROM   movies m 
        LEFT JOIN (movie_data) 
               ON movie_data.movie_id = m.movie_id
+              
+              
+              
+/*
+___________________________
+Brandi 
+8.45 --
+Description: Given two stage names (this would be the input), give me the list of all movies in which both of them have some association.
+
+*/
+
+SELECT     movies.english_name, 
+           movie_people.role, 
+           movie_people.screen_name, 
+           people.first_name, 
+           people.last_name 
+FROM       `movie_people` 
+INNER JOIN movies, 
+           people 
+WHERE      movie_people.movie_id = movies.movie_id && people.stage_name='Alfred Hitchcock' 
+OR         people.stage_name='Kim Novak'
