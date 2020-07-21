@@ -90,3 +90,19 @@ FROM   movies m
 WHERE  p.stage_name IN ( 'Alfred Hitchcock', 'Kim Novak' ) 
 GROUP  BY m.native_name 
 HAVING Count(m.movie_id) > 2 
+/*
+___________________________
+ 
+8.57 -- Daniel
+Description: Give me the list of all movies that contain movie_media 
+where m_link_type = “alt_poster”  If a movie doesn’t contain 
+media or doesn’t contain alt_poster, do NOT show that 
+movie in the result set*/
+
+SELECT movies.native_name, 
+       movie_media.m_link, 
+       movie_media.m_link_type
+FROM movies, 
+     movie_media
+WHERE movies.movie_id = movie_media.movie_id AND movie_media.m_link_type = 'poster'
+
