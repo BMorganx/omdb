@@ -77,13 +77,16 @@ Brandi
 8.45 --
 Description: Given two stage names (this would be the input), give me the list of all movies in which both of them have some association.
 
+Table will show the common movie among the two names.
+
 */
 
-SELECT movies.native_name, 
-       people.stage_name, 
-       movie_people.role 
-FROM   movies 
-JOIN   people, 
-       movie_people 
-WHERE  movies.movie_id = movie_people.movie_id && people.people_id = movie_people.people_id && (people.stage_name = "Alfred Hitchcock"
-OR     people.stage_name = "Kim Novak")
+SELECT m.native_name 
+FROM   movies m 
+       INNER JOIN movie_people mp 
+               ON mp.movie_id = m.movie_id 
+       INNER JOIN people p 
+               ON mp.people_id = p.people_id 
+WHERE  p.stage_name IN ( 'Alfred Hitchcock', 'Kim Novak' ) 
+GROUP  BY m.native_name 
+HAVING Count(m.movie_id) > 2 
