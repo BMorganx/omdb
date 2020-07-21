@@ -94,7 +94,7 @@ image_name
     // query string for the Query A.1
     $sql_A1m = "SELECT people_id, stage_name, first_name, middle_name, last_name, gender, image_name 
                FROM people 
-               WHERE people_id =" . $people_id;
+               WHERE people_id=". $people_id;
 
     if (!$sql_A1m_result = $db->query($sql_A1m)) {
       die('There was an error running query[' . $connection->error . ']');
@@ -148,7 +148,6 @@ TODO: Copy the code snippet from A, change the code to reflect Extended data
           <tr>
             <th> No. Of Movies as Director</th>
             <th> No. Of Movies as Actor</th>
-            <th> No. of Movies as Actress</th>
             <th> No. of Movies as Producer</th>
             <th> No. Of Songs as Composer </th>
             <th> No. Of Songs as Lyricist </th>
@@ -160,17 +159,16 @@ TODO: Copy the code snippet from A, change the code to reflect Extended data
 
         // query string for the Query C
         $sql_B = "SELECT movie_people.role Role, song_people.role,
-                COUNT(DISTINCT movie_people.role = movie_people.role && movie_people.role = 'Director%') Count,
-                COUNT(DISTINCT movie_people.role = movie_people.role && movie_people.role = 'Actor%') Count2,
-                COUNT(DISTINCT movie_people.role = movie_people.role && movie_people.role = 'Actress%') Count3,
-                COUNT(DISTINCT movie_people.role = movie_people.role && movie_people.role = 'PRODUCER%') Count4,
-                COUNT(DISTINCT song_people.role = song_people.role && song_people.role = 'Composer%') Count5,
-                COUNT(DISTINCT song_people.role = song_people.role && song_people.role = 'Lyricist%') Count6,
-                COUNT(DISTINCT song_people.role = song_people.role && song_people.role = 'Music Director%') Count7
-                FROM movie_people 
-                INNER JOIN movies On movies.movie_id = movie_people.movie_id 
-                INNER JOIN people on people.people_id = movie_people.people_id
-                INNER JOIN song_people on song_people.people_id = movie_people.people_id";
+                  (SELECT COUNT(*) FROM movie_people WHERE people_id = ".$_GET['people_id']." AND role LIKE '%act%') AS actor,
+                  (SELECT COUNT(*) FROM movie_people WHERE people_id = ".$_GET['people_id']." AND role LIKE '%director%') AS director,
+                  (SELECT COUNT(*) FROM movie_people WHERE people_id = ".$_GET['people_id']." AND role LIKE '%producer%') AS producer,
+                  (SELECT COUNT(*) FROM song_people WHERE people_id = ".$_GET['people_id']." AND role LIKE '%composer%') AS composer,
+                  (SELECT COUNT(*) FROM song_people WHERE people_id = ".$_GET['people_id']." AND role LIKE '%lyricist%') AS lyricist,
+                  (SELECT COUNT(*) FROM song_people WHERE people_id = ".$_GET['people_id']." AND role LIKE '%music director%') AS md
+                  FROM movie_people 
+                  INNER JOIN movies On movies.movie_id = movie_people.movie_id 
+                  INNER JOIN people on people.people_id = movie_people.people_id
+                  INNER JOIN song_people on song_people.people_id = movie_people.people_id;";
 
         if (!$sql_B_result = $db->query($sql_B)) {
           die('There was an error running query[' . $db->error . ']');
@@ -183,14 +181,12 @@ TODO: Copy the code snippet from A, change the code to reflect Extended data
           // output data of each row
           while ($b_tuple = $sql_B_result->fetch_assoc()) {
             echo '<tr>
-                      <td>' . $b_tuple["Count"] . '</td>
-                      <td>' . $b_tuple["Count2"] . '</td>
-                      <td>' . $b_tuple["Count3"] . '</td>
-                      <td>' . $b_tuple["Count4"] . ' </span> </td>
-                      <td>' . $b_tuple["Count5"] . ' </span> </td>
-                      <td>' . $b_tuple["Count6"] . ' </span> </td>
-                      <td>' . $b_tuple["Count7"] . ' </span> </td>
-
+                      <td>' . $b_tuple["director"] . '</td>
+                      <td>' . $b_tuple["actor"] . '</td>
+                      <td>' . $b_tuple["producer"] . '</td>
+                      <td>' . $b_tuple["composer"] . ' </span> </td>
+                      <td>' . $b_tuple["lyricist"] . ' </span> </td>
+                      <td>' . $b_tuple["md"] . ' </span> </td>
 
                   </tr>';
           } //end while
@@ -212,7 +208,7 @@ movie_id, native_name, english_name, year_made, role, screen_name
 
 <div class="right-content">
   <div class="container">
-    <h3 style="color: #01B0F1;">[C] PEOPLE -> SONGS</h3>
+    <h3 style="color: #01B0F1;">[C] People -> Movies</h3>
 
 
     <table class="display" id="movie_media_table" style="width:100%">
@@ -233,10 +229,9 @@ movie_id, native_name, english_name, year_made, role, screen_name
         <?php
 
         // query string for the Query C
-        $sql_C1 = "SELECT mp.movie_id, m.native_name, m.english_name, m.year_made, mp.role, p.stage_name
-                  FROM movie_people mp
-                  INNER JOIN movies m ON (m.movie_id = mp.movie_id) 
-                  INNER JOIN people p ON (p.people_id = mp.people_id)";
+        $sql_C1 = "SELECT movies.movie_id, movies.native_name, movies.english_name, movie_people.role, movie_people.screen_name, movies.year_made 
+        FROM movies, movie_people 
+        WHERE movie_people.people_id = ".$_GET['people_id']." AND movies.movie_id = movie_people.movie_id";
 
         if (!$sql_C1_result = $db->query($sql_C1)) {
           die('There was an error running query[' . $db->error . ']');
@@ -254,7 +249,7 @@ movie_id, native_name, english_name, year_made, role, screen_name
                       <td>' . $c1_tuple["english_name"] . '</td>
                       <td>' . $c1_tuple["year_made"] . ' </span> </td>
                       <td>' . $c1_tuple["role"] . ' </span> </td>
-                      <td>' . $c1_tuple["stage_name"] . ' </span> </td>
+                      <td>' . $c1_tuple["screen_name"] . ' </span> </td>
 
                   </tr>';
           } //end while
@@ -301,8 +296,8 @@ role (from song_people)
 
         // query string for the Query A.3
         $sql_D1 = "SELECT songs.song_id, songs.title, songs.lyrics, song_people.role 
-                  FROM songs
-                  INNER JOIN song_people ON song_people.song_id = songs.song_id";
+        FROM songs, song_people 
+        WHERE song_people.people_id = ".$_GET['people_id']." AND songs.song_id = song_people.song_id ";
 
         if (!$sql_D1_result = $db->query($sql_D1)) {
           die('There was an error running query[' . $db->error . ']');
