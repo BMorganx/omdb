@@ -79,13 +79,11 @@ Description: Given two stage names (this would be the input), give me the list o
 
 */
 
-SELECT     movies.english_name, 
-           movie_people.role, 
-           movie_people.screen_name, 
-           people.first_name, 
-           people.last_name 
-FROM       `movie_people` 
-INNER JOIN movies, 
-           people 
-WHERE      movie_people.movie_id = movies.movie_id && people.stage_name='Alfred Hitchcock' 
-OR         people.stage_name='Kim Novak'
+SELECT movies.native_name, 
+       people.stage_name, 
+       movie_people.role 
+FROM   movies 
+JOIN   people, 
+       movie_people 
+WHERE  movies.movie_id = movie_people.movie_id && people.people_id = movie_people.people_id && (people.stage_name = "Alfred Hitchcock"
+OR     people.stage_name = "Kim Novak")
