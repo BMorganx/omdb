@@ -94,7 +94,7 @@ image_name
     // query string for the Query A.1
     $sql_A1m = "SELECT people_id, stage_name, first_name, middle_name, last_name, gender, image_name 
                FROM people 
-               ORDER BY people_id";
+               WHERE people_id =" . $people_id;
 
     if (!$sql_A1m_result = $db->query($sql_A1m)) {
       die('There was an error running query[' . $connection->error . ']');
