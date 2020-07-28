@@ -122,28 +122,21 @@ __________________________________
 8.53 -- Xavier
 Description: Give me the list of all songs based on a theme (“theme” is the input)
 */
+--Iteration 8, Query 53 
+--Returns a table of songs based on a theme
+SELECT *
+FROM songs 
+WHERE theme = "";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+__________________________________
+8.61 -- Xavier
+Description: Returns the name and amount earned of the three highest grossing movies 
+in order from highest to lowest
+SELECT native_name, box_office
+FROM movies INNER JOIN movie_numbers
+ON movies.movie_id = movie_numbers.movie_id
+ORDER BY box_office DESC
+LIMIT 3;
 
 
 
