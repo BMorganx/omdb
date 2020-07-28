@@ -176,3 +176,34 @@ INSERT INTO `movie_trivia` (`movie_id`, `movie_trivia_id`, `movie_trivia_name`) 
 (2001, 3, 'The front of the Mandrakis house was built at an unused reservoir; the interior was in a studio.'),
 (2001, 4, 'Though the film is billed as a remake of the same-named 1979 film, it's actually only a remake of the first 20 minutes of it--the ones that made it a cult classic.');
 (2001, 5, 'The voice of "Stacy", the unseen girl during the opening-credit sequence and victim of the killer that targets Jill, is that of director Simon West's 12-year-old daughter Lillie.')
+
+/*Insert into people --*/
+
+INSERT INTO `people` (`people_id`, `stage_name`, `first_name`, `middle_name`, `last_name`, `gender`, `image_name`) VALUES
+(11, 'Simon West', 'Simon', '', 'West', 'Male', 'simon_west.jpg')
+(12, 'Camilla Belle', 'Camilla', '', 'Belle', 'Female', 'Camilla_Belle.jpg'),
+(13, 'Tommy Flanagan', 'Tommy', '', 'Flanagan', 'Male', 'Tommy_Flanagan.jpg'),
+(14, 'Katie Cassidy', 'Katie', '', 'Cassidy', 'Female', 'katie_cassidy.jpg'),
+(15, 'Tessa Thompson', 'Tessa', '', 'Thompson', 'Female', 'Tessa_Thompson.jpg'),
+(16, 'Brian Geragh', 'Brian', '', 'Geragh', 'Male', 'Brian_Geragh.jpg');
+
+INSERT INTO `people_trivia` (`people_id`, `people_trivia_id`, `people_trivia_name`) VALUES
+(12, 6, 'Camilla Belle had to do two months of weight-training and learning how to run to prepare for the role of Jill.');
+
+/* Insert into Songs */
+
+INSERT INTO `songs` (`song_id`, `title`, `lyrics`, `theme`) VALUES
+(3, 'Lock It', NULL, 'None');
+
+INSERT INTO `song_keywords` (`song_id`, `keyword`) VALUES
+(3, 'Unknown');
+
+INSERT INTO `song_media` (`song_media_id`, `s_link`, `s_link_type`, `song_id`) VALUES
+(6, NULL, 'None', 3);
+
+INSERT INTO `song_people` (`song_id`, `people_id`, `role`) VALUES
+(3, 17, 'Composer');
+
+INSERT INTO `song_trivia` (`song_id`, `song_trivia_id`, `song_trivia_name`) VALUES
+(3, 5, 'Joe Faraci wrote and performed the song in this movie');
+
