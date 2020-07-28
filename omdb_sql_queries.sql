@@ -107,6 +107,40 @@ FROM movies,
 WHERE movies.movie_id = movie_media.movie_id AND movie_media.m_link_type = 'poster'
 
 /*
+__________________________________
+8.53 -- Xavier
+Description: Give me the list of all songs based on a theme (“theme” is the input)
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 Iteration 9
 Description: Creates the data in the primary “movie” table as well as all related “weak” entities. 
 
