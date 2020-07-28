@@ -110,6 +110,7 @@ WHERE movies.movie_id = movie_media.movie_id AND movie_media.m_link_type = 'post
 __________________________________
 8.53 -- Xavier
 Description: Give me the list of all songs based on a theme (“theme” is the input)
+$theme is a generic php variable, could be anything
 */
 
 SELECT *
@@ -128,10 +129,12 @@ SELECT *
 FROM songs 
 WHERE theme = "";
 
+/*
 __________________________________
 8.61 -- Xavier
 Description: Returns the name and amount earned of the three highest grossing movies 
 in order from highest to lowest
+*/
 SELECT native_name, box_office
 FROM movies INNER JOIN movie_numbers
 ON movies.movie_id = movie_numbers.movie_id
