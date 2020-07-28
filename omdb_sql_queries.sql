@@ -106,3 +106,39 @@ FROM movies,
      movie_media
 WHERE movies.movie_id = movie_media.movie_id AND movie_media.m_link_type = 'poster'
 
+/*
+Iteration 9
+Description: Creates the data in the primary “movie” table as well as all related “weak” entities. 
+
+*/
+--Insert into movies
+INSERT INTO `movies` (`movie_id`, `native_name`, `english_name`, `year_made`) VALUES
+(2001, 'When a Stranger Calls', 'When a Stranger Calls', 2006);
+
+INSERT INTO `movie_anagrams` (`movie_id`, `anagram`) VALUES
+(2001, '');
+
+INSERT INTO `movie_data` (`tag_line`, `movie_id`, `language`, `country`, `genre`, `plot`) VALUES
+('Whatever You Do, Don't Answer The Phone', 2001, 'English', 'USA', 'Horror/Thriller', 'Jill Johnson, a young teenager, is asked to baby sit for a rich family in a massive 3 story house. The kids are sleeping, giving her no company until she gets a mysterious unknown call. When she finds out the caller is in the house, she fights for freedom. Can she escape and save the kids in time?');
+
+INSERT INTO `movie_keywords` (`movie_id`, `keyword`) VALUES
+(2001, 'cell phone'),
+(2001, 'highschool'),
+(2001, 'teenager'),
+(2001, 'nightmare'),
+(2001, 'babysitting');
+
+INSERT INTO `movie_media` (`movie_media_id`, `m_link`, `m_link_type`, `movie_id`) VALUES
+(20, 'https://www.youtube.com/watch?v=wVXCvuzw_Xw', 'video', 2001),
+(21, 'When_A_Stranger_Calls.jpg', 'poster', 2001);
+
+INSERT INTO `movie_numbers` (`movie_id`, `running_time`, `length`, `strength`, `weight`, `budget`, `box_office`) VALUES
+(2001, 87, 24, 1, 1, 20, 35);
+
+INSERT INTO `movie_quotes` (`movie_id`, `movie_quote_id`, `movie_quote_name`) VALUES
+(2001, 8, 'Your blood all over me.');
+
+INSERT INTO `movie_trivia` (`movie_id`, `movie_trivia_id`, `movie_trivia_name`) VALUES
+(2001, 3, 'The front of the Mandrakis house was built at an unused reservoir; the interior was in a studio.'),
+(2001, 4, 'Though the film is billed as a remake of the same-named 1979 film, it's actually only a remake of the first 20 minutes of it--the ones that made it a cult classic.');
+(2001, 5, 'The voice of "Stacy", the unseen girl during the opening-credit sequence and victim of the killer that targets Jill, is that of director Simon West's 12-year-old daughter Lillie.')
