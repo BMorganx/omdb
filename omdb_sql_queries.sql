@@ -112,9 +112,16 @@ __________________________________
 Description: Give me the list of all songs based on a theme (“theme” is the input)
 */
 
+SELECT *
+FROM songs
+WHERE theme = $theme;
 
 
-
+/*
+__________________________________
+8.53 -- Xavier
+Description: Give me the list of all songs based on a theme (“theme” is the input)
+*/
 
 
 
