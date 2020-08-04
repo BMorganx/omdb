@@ -51,4 +51,17 @@ Optimized By: Xavier
 */
 
 
+/*
+___________________________
+Daniel
+7.30 --
+Description: Delete a relation between a movie and a people (including role and screen name)
 
+*/
+
+
+DELETE FROM `movie_people` 
+WHERE `movie_people`.`movie_id` = 2004 AND `movie_people`.`people_id` = 21 AND `movie_people`.`role` = 'Actor' AND `movie_people`.`screen_name` = ''
+
+
+/*
