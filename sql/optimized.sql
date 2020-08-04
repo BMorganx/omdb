@@ -6,8 +6,6 @@ Description: Given two stage names (this would be the input), give me the list o
 
 Table will show the common movie among the two names.
 
-
-
 */
 
 
@@ -35,11 +33,6 @@ Index movie_people, people
 Added LIMIT statement
 */
 
-
-/*
-
-*/
-
 SELECT m.native_name 
 FROM   movies m 
        INNER JOIN movie_people mp 
@@ -57,14 +50,5 @@ Optimized By: Xavier
 
 */
 
-ALTER TABLE movie_people ADD INDEX (people_id, movie_id)
-EXPLAIN SELECT native_name AS Movie, 
-  stage_name AS Director, 
-  gender 
-  FROM movies 
-    JOIN movie_people ON movies.movie_id = movie_people.movie_id 
-      JOIN people ON movie_people.people_id = people.people_id WHERE (role = "Director" AND stage_name = "Takashi Shimizu") 
-  GROUP BY movies.movie_id
-LTER TABLE movie_people ADD INDEX (people_id, movie_id)
 
-ALTER TABLE movie_people DROP INDEX movie_id
+
